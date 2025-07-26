@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, Response
 import subprocess
 
 app = Flask(__name__)
@@ -7,12 +7,14 @@ app = Flask(__name__)
 def index():
     return '''
     <html>
-        <head><title>Mezclador de Audio</title></head>
+        <head>
+            <title>Mix Audio</title>
+        </head>
         <body style="font-family:sans-serif;">
-            <h2>🎙️ Mezclador de Voz y Música</h2>
+            <h2>🎙️ Sube tu voz y música</h2>
             <form method="POST" action="/mix" enctype="multipart/form-data">
-                <p><b>Archivo de voz (.mp3):</b><br><input type="file" name="voice"></p>
-                <p><b>Música de fondo (.mp3):</b><br><input type="file" name="music"></p>
+                <p><b>Voz (MP3):</b> <input type="file" name="voice"></p>
+                <p><b>Música de fondo (MP3):</b> <input type="file" name="music"></p>
                 <input type="submit" value="🎧 Mezclar">
             </form>
         </body>
@@ -36,7 +38,12 @@ def mix_audio():
     ]
     subprocess.run(command)
 
-    return send_file("output.mp3", mimetype="audio/mpeg")
+    return send_file(
+        "output.mp3",
+        as_attachment=True,
+        download_name="mezcla.mp3",
+        mimetype="audio/mpeg"
+    )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
