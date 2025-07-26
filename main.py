@@ -7,13 +7,13 @@ app = Flask(__name__)
 def index():
     return '''
     <html>
-        <head><title>Mix Audio</title></head>
-        <body>
-            <h2>Sube tu voz y música</h2>
+        <head><title>Mezclador de Audio</title></head>
+        <body style="font-family:sans-serif;">
+            <h2>🎙️ Mezclador de Voz y Música</h2>
             <form method="POST" action="/mix" enctype="multipart/form-data">
-                Voz (MP3): <input type="file" name="voice"><br><br>
-                Música de fondo (MP3): <input type="file" name="music"><br><br>
-                <input type="submit" value="Mezclar">
+                <p><b>Archivo de voz (.mp3):</b><br><input type="file" name="voice"></p>
+                <p><b>Música de fondo (.mp3):</b><br><input type="file" name="music"></p>
+                <input type="submit" value="🎧 Mezclar">
             </form>
         </body>
     </html>
