@@ -28,4 +28,20 @@ def mix_audio():
     return send_file("output.mp3", mimetype="audio/mpeg")
 
 if __name__ == "__main__":
+    @app.route("/", methods=["GET"])
+def index():
+    return '''
+    <html>
+        <head><title>Mix Audio</title></head>
+        <body>
+            <h2>Sube tu voz y música</h2>
+            <form method="POST" action="/mix" enctype="multipart/form-data">
+                Voz (MP3): <input type="file" name="voice"><br><br>
+                Música de fondo (MP3): <input type="file" name="music"><br><br>
+                <input type="submit" value="Mezclar">
+            </form>
+        </body>
+    </html>
+    '''
+
     app.run(host="0.0.0.0", port=3000)
